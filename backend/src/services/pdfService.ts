@@ -116,7 +116,16 @@ function renderPaperHTML(paper: IQuestionPaper): string {
 export async function generatePDF(paper: IQuestionPaper): Promise<Buffer> {
   const browser = await puppeteer.launch({
     headless: true,
-    args: ['--no-sandbox', '--disable-setuid-sandbox'],
+    // On Render: uses system Chromium via PUPPETEER_EXECUTABLE_PATH env var
+    // Locally: falls back to Puppeteer's bundled Chromium
+    executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || undefined,
+    args: [
+      '--no-sandbox',
+      '--disable-setuid-sandbox',
+      '--disable-dev-shm-usage',
+      '--disable-gpu',
+      '--single-process',
+    ],
   });
   const page = await browser.newPage();
   await page.setContent(renderPaperHTML(paper), { waitUntil: 'networkidle0' });
