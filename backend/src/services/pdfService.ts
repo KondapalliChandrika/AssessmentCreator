@@ -20,6 +20,7 @@ function renderPaperHTML(paper: IQuestionPaper): string {
           <li>
             <span class="question-text">${q.text}</span>
             <span class="marks">[${q.marks} mark${q.marks > 1 ? 's' : ''}]</span>
+            <span class="difficulty difficulty-${q.difficulty}">${q.difficulty}</span>
             ${q.options && q.options.length > 0
                 ? `<ul class="options">${q.options.map((opt) => `<li>${opt}</li>`).join('')}</ul>`
                 : ''
@@ -72,6 +73,11 @@ function renderPaperHTML(paper: IQuestionPaper): string {
     .options { margin-top: 4px; padding-left: 20px; list-style-type: none; }
     .options li { margin: 2px 0; font-size: 12px; }
     .marks { font-size: 11px; color: #555; margin-left: 4px; }
+    .difficulty { display: inline-block; font-size: 10px; font-weight: bold; text-transform: uppercase;
+      padding: 1px 7px; border-radius: 999px; margin-left: 6px; letter-spacing: 0.5px; }
+    .difficulty-easy   { background: #d1fae5; color: #065f46; }
+    .difficulty-medium { background: #fef3c7; color: #92400e; }
+    .difficulty-hard   { background: #fee2e2; color: #991b1b; }
     .end-line { border-top: 1px solid #333; margin-top: 24px; padding-top: 8px; font-size: 13px; font-weight: bold; }
 
     /* Answer Key styles */
