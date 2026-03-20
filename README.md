@@ -1,4 +1,4 @@
-AI-Powered Assessment Creator
+#  VedaAI — AI-Powered Assessment Creator
 
 Assessment Creator is a full-stack web application that helps teachers create, manage, and distribute AI-generated question papers and assignments with ease.
 

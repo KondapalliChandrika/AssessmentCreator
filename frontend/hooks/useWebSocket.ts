@@ -11,7 +11,7 @@ export function useWebSocket(assignmentId: string | null) {
     useEffect(() => {
         if (!assignmentId) return;
 
-        const socket = io(process.env.NEXT_PUBLIC_WS_URL || 'http://localhost:5000', {
+        const socket = io(process.env.NEXT_PUBLIC_WS_URL, {
             transports: ['websocket'],
         });
 

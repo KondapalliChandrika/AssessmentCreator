@@ -12,7 +12,7 @@ interface Props {
     status?: 'generating' | 'done' | 'failed';
 }
 
-export default function ProgressModal({ isOpen, progress, message, status, onClose }: Props) {
+export default function ProgressModal({ isOpen, progress, status, onClose }: Props) {
     useEffect(() => {
         if (status === 'done' && onClose) {
             const timer = setTimeout(onClose, 1500);

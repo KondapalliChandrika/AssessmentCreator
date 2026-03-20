@@ -9,7 +9,6 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // ─── Exact Figma palette ───────────────────────────
         // Page / content background
         'page-bg': '#F2F2F7',
         // Sidebar

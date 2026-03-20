@@ -13,7 +13,6 @@ import {
     DocumentArrowDownIcon,
     SparklesIcon,
 } from '@heroicons/react/24/outline';
-import Link from 'next/link';
 
 
 export default function AssignmentDetailPage() {
@@ -118,25 +117,27 @@ export default function AssignmentDetailPage() {
             />
 
             {/* ── Dark AI message banner ── */}
-            <div className="bg-[#1A1A2E] text-white px-6 py-4">
-                <div className="flex items-start gap-2 mb-3">
-                    <SparklesIcon className="w-4 h-4 text-[#E8531D] flex-shrink-0 mt-0.5" />
-                    <p className="text-sm text-gray-300 leading-relaxed">
-                        Here&apos;s your customized Question Paper for{' '}
-                        <strong className="text-white">{paper.metadata.subject}</strong> — Class{' '}
-                        <strong className="text-white">{paper.metadata.grade}</strong>.
-                        Download the PDF below.
-                    </p>
-                </div>
-                <div className="flex items-center gap-3">
-                    <button
-                        id="download-pdf-btn"
-                        onClick={handleDownloadPDF}
-                        className="flex items-center gap-2 px-4 py-2 bg-white hover:bg-gray-100 text-[#1A1A2E] text-sm font-semibold rounded-lg transition-colors"
-                    >
-                        <DocumentArrowDownIcon className="w-4 h-4" />
-                        Download as PDF
-                    </button>
+            <div className="mt-3 mx-3 rounded-2xl overflow-hidden">
+                <div className="bg-[#1A1A2E] text-white px-6 py-4">
+                    <div className="flex items-start gap-2 mb-3">
+                        <SparklesIcon className="w-4 h-4 text-[#E8531D] flex-shrink-0 mt-0.5" />
+                        <p className="text-sm text-gray-300 leading-relaxed">
+                            Here&apos;s your customized Question Paper for{' '}
+                            <strong className="text-white">{paper.metadata.subject}</strong> — Class{' '}
+                            <strong className="text-white">{paper.metadata.grade}</strong>.
+                            Download the PDF below.
+                        </p>
+                    </div>
+                    <div className="flex items-center gap-3">
+                        <button
+                            id="download-pdf-btn"
+                            onClick={handleDownloadPDF}
+                            className="flex items-center gap-2 px-4 py-2 bg-white hover:bg-gray-100 text-[#1A1A2E] text-sm font-semibold rounded-lg transition-colors"
+                        >
+                            <DocumentArrowDownIcon className="w-4 h-4" />
+                            Download as PDF
+                        </button>
+                    </div>
                 </div>
             </div>
 

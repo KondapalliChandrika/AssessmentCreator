@@ -133,7 +133,7 @@ export default function CreateAssignmentForm() {
             />
 
             {/* ── Page title section: green dot + title + subtitle + progress bar ── */}
-            <div className="bg-white border-b border-[#E9ECEF] px-4 sm:px-6 pb-4 pt-4">
+            <div className=" border-b border-[#E9ECEF] px-4 sm:px-6 pb-4 pt-4">
                 <div className="flex items-center gap-2 mb-0.5">
                     {/* Green status dot */}
                     <span className="w-2.5 h-2.5 rounded-full bg-green-500 flex-shrink-0" />

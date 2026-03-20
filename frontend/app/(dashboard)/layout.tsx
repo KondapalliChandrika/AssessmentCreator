@@ -8,7 +8,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
               Desktop: push right of fixed 220px sidebar
               Mobile:  full width, top padding for mobile top-bar (56px), bottom padding for bottom nav (64px)
             */}
-            <main className="flex-1 w-full lg:ml-[220px] pt-[56px] lg:pt-0 pb-16 lg:pb-0 min-h-screen">
+            <main className="flex-1 w-full lg:ml-[220px] pb-24 lg:pb-0 min-h-screen">
                 {children}
             </main>
         </div>

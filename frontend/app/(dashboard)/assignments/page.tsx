@@ -80,7 +80,6 @@ export default function AssignmentsPage() {
             />
 
             <div className="px-6 py-5">
-                {/* Page heading with green dot — matches Figma */}
                 <div className="mb-4">
                     <div className="flex items-center gap-2 mb-0.5">
                         <span className="w-2 h-2 rounded-full bg-green-500 flex-shrink-0" />
@@ -89,7 +88,6 @@ export default function AssignmentsPage() {
                     <p className="text-xs text-[#6B7280] ml-4">Manage and create assignments for your classes.</p>
                 </div>
 
-                {/* Filter + Search bar — full width, matching Figma layout */}
                 <div className="flex items-center gap-2 mb-5">
                     <button className="flex items-center gap-1.5 text-xs text-[#374151] border border-[#D1D5DB] rounded-md px-3 py-2 bg-white hover:bg-gray-50 whitespace-nowrap flex-shrink-0">
                         <FunnelIcon className="w-3.5 h-3.5 text-[#6B7280]" />
@@ -129,15 +127,14 @@ export default function AssignmentsPage() {
                 )}
             </div>
 
-            {/* Floating "+ Create Assignment" — always horizontally centered */}
-            <div className="fixed bottom-20 lg:bottom-8 left-1/2 -translate-x-1/2 z-40">
+            <div className="hidden lg:flex fixed bottom-8 left-1/2 -translate-x-1/2 z-40">
                 <Link
                     href="/assignments/create"
                     id="floating-create-btn"
                     className="flex items-center gap-2 px-6 py-2.5 bg-[#1A1A2E] hover:bg-[#2a2a40] text-white text-sm font-semibold rounded-full shadow-lg transition-colors"
                 >
                     <PlusIcon className="w-4 h-4" />
-                     Create Assignment
+                    Create Assignment
                 </Link>
             </div>
         </div>

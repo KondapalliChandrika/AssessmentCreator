@@ -86,7 +86,6 @@ export default function AssignmentCard({
         </div>
       </div>
 
-      {/* Dates row — matches Figma: bold date values */}
       <div className="flex items-center gap-4 text-xs text-[#6B7280]">
         <span>
           <span className="font-semibold text-[#111827]">Assigned on: </span>
