@@ -33,6 +33,4 @@ export const api = {
         fetchJSON<{ success: boolean; data: unknown }>(`${API_BASE}/assignments/${assignmentId}/regenerate`, {
             method: 'POST',
         }),
-
-    getPDFUrl: (assignmentId: string) => `${API_BASE}/assignments/${assignmentId}/pdf`,
 };

@@ -10,7 +10,7 @@ let generationQueue: Queue<GenerationJobData> | null = null;
 export function getGenerationQueue(): Queue<GenerationJobData> {
     if (!generationQueue) {
         generationQueue = new Queue<GenerationJobData>('generation', {
-            connection: getRedis(),
+            connection: getRedis() as any,
         });
     }
     return generationQueue;

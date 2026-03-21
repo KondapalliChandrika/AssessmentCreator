@@ -1,13 +1,17 @@
-import Redis from 'ioredis';
-
-let redis: Redis | null = null;
-
-export function getRedis(): Redis {
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.cacheService = void 0;
+exports.getRedis = getRedis;
+const ioredis_1 = __importDefault(require("ioredis"));
+let redis = null;
+function getRedis() {
     if (!redis) {
         const redisUrl = process.env.REDIS_URL || 'redis://localhost:6379';
         const isTls = redisUrl.startsWith('rediss://');
-
-        redis = new Redis(redisUrl, {
+        redis = new ioredis_1.default(redisUrl, {
             tls: isTls ? {} : undefined,
             maxRetriesPerRequest: null,
             retryStrategy(times) {
@@ -15,42 +19,32 @@ export function getRedis(): Redis {
             },
             lazyConnect: true,
         });
-
         redis.connect().catch(console.error);
-
         redis.on('connect', () => console.log('✅ Redis connected'));
         redis.on('error', (err) => console.error('❌ Redis error:', err));
     }
     return redis;
 }
-
-export const cacheService = {
-    async set(key: string, value: unknown, ttlSeconds: number): Promise<void> {
+exports.cacheService = {
+    async set(key, value, ttlSeconds) {
         await getRedis().set(key, JSON.stringify(value), 'EX', ttlSeconds);
     },
-
-    async get<T>(key: string): Promise<T | null> {
+    async get(key) {
         const data = await getRedis().get(key);
-        if (!data) return null;
-        return JSON.parse(data) as T;
+        if (!data)
+            return null;
+        return JSON.parse(data);
     },
-
-    async del(key: string): Promise<void> {
+    async del(key) {
         await getRedis().del(key);
     },
-
-    async setJobProgress(jobId: string, progress: number, message: string): Promise<void> {
-        await getRedis().set(
-            `assignment:status:${jobId}`,
-            JSON.stringify({ progress, message }),
-            'EX',
-            3600
-        );
+    async setJobProgress(jobId, progress, message) {
+        await getRedis().set(`assignment:status:${jobId}`, JSON.stringify({ progress, message }), 'EX', 3600);
     },
-
-    async getJobProgress(jobId: string): Promise<{ progress: number; message: string } | null> {
+    async getJobProgress(jobId) {
         const data = await getRedis().get(`assignment:status:${jobId}`);
-        if (!data) return null;
+        if (!data)
+            return null;
         return JSON.parse(data);
     },
 };
