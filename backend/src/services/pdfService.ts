@@ -1,4 +1,4 @@
-import puppeteer from 'puppeteer';
+import puppeteer from 'puppeteer-core';
 import { IQuestionPaper } from '../models/QuestionPaper';
 
 function getSectionLabel(label: string): string {
@@ -120,11 +120,16 @@ function renderPaperHTML(paper: IQuestionPaper): string {
 }
 
 export async function generatePDF(paper: IQuestionPaper): Promise<Buffer> {
+  // puppeteer-core requires an explicit executablePath (no bundled browser)
+  const executablePath =
+    process.env.PUPPETEER_EXECUTABLE_PATH ||
+    '/usr/bin/google-chrome-stable' ||   // Render default
+    '/usr/bin/chromium-browser' ||        // Ubuntu fallback
+    '/usr/bin/chromium';                  // Debian fallback
+
   const browser = await puppeteer.launch({
     headless: true,
-    // On Render: uses system Chromium via PUPPETEER_EXECUTABLE_PATH env var
-    // Locally: falls back to Puppeteer's bundled Chromium
-    executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || undefined,
+    executablePath,
     args: [
       '--no-sandbox',
       '--disable-setuid-sandbox',
