@@ -5,8 +5,16 @@ let redis: Redis | null = null;
 export function getRedis(): Redis {
     if (!redis) {
         redis = new Redis(process.env.REDIS_URL || 'redis://localhost:6379', {
+            tls: {},
             maxRetriesPerRequest: null,
+            retryStrategy(times) {
+                return Math.min(times * 50, 2000);
+            },
+            lazyConnect: true,
         });
+
+        redis.connect().catch(console.error);
+
         redis.on('connect', () => console.log('✅ Redis connected'));
         redis.on('error', (err) => console.error('❌ Redis error:', err));
     }
