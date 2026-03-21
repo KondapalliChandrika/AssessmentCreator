@@ -4,11 +4,8 @@ let redis: Redis | null = null;
 
 export function getRedis(): Redis {
     if (!redis) {
-        const redisUrl = process.env.REDIS_URL || 'redis://localhost:6379';
-        const isTls = redisUrl.startsWith('rediss://');
-
-        redis = new Redis(redisUrl, {
-            tls: isTls ? {} : undefined,
+        redis = new Redis(process.env.REDIS_URL || 'redis://localhost:6379', {
+            tls: {},
             maxRetriesPerRequest: null,
             retryStrategy(times) {
                 return Math.min(times * 50, 2000);

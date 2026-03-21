@@ -81,7 +81,7 @@ export function initWorker(): void {
             }
         },
         {
-            connection: getRedis() as any,
+            connection: getRedis(),
             concurrency: 3,
         }
     );
