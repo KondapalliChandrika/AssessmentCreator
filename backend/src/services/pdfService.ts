@@ -95,7 +95,6 @@ function renderPaperHTML(paper: IQuestionPaper): string {
   </div>
   <div class="meta">
     <span>Time Allowed: ${paper.metadata.timeAllowed}</span>
-    <span>Maximum Marks: ${paper.metadata.totalMarks}</span>
   </div>
   <div class="student-info">
     <p>Name: ____________________________</p>
@@ -128,7 +127,7 @@ export async function generatePDF(paper: IQuestionPaper): Promise<Buffer> {
     '/usr/bin/chromium';                  // Debian fallback
 
   const browser = await puppeteer.launch({
-    headless: true,
+    headless: "new",
     executablePath,
     args: [
       '--no-sandbox',

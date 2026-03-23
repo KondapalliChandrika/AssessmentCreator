@@ -4,8 +4,8 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import { useAssignmentStore } from '@/store/assignmentStore';
 import { useWebSocket } from '@/hooks/useWebSocket';
-import { api } from '@/lib/api';
 import { QuestionPaper, Question } from '@/lib/types';
+import { downloadPDF } from '@/lib/pdfUtils';
 import ProgressModal from '@/components/ProgressModal/ProgressModal';
 import TopHeader from '@/components/TopHeader/TopHeader';
 import {
@@ -19,6 +19,7 @@ export default function AssignmentDetailPage() {
     const { id } = useParams<{ id: string }>();
     const { currentAssignment, currentPaper, fetchAssignment, fetchPaper, regenerate, generationStatus, setGenerating, resetGeneration } = useAssignmentStore();
     const [regenerating, setRegenerating] = useState(false);
+    const [downloading, setDownloading] = useState(false);
 
     useWebSocket(id);
 
@@ -44,8 +45,14 @@ export default function AssignmentDetailPage() {
         await regenerate(id);
     };
 
-    const handleDownloadPDF = () => {
-        window.open(api.getPDFUrl(id), '_blank');
+    const handleDownloadPDF = async () => {
+        if (!currentPaper || downloading) return;
+        setDownloading(true);
+        try {
+            await downloadPDF(currentPaper as QuestionPaper);
+        } finally {
+            setDownloading(false);
+        }
     };
 
     if (!currentAssignment) {
@@ -132,10 +139,11 @@ export default function AssignmentDetailPage() {
                         <button
                             id="download-pdf-btn"
                             onClick={handleDownloadPDF}
-                            className="flex items-center gap-2 px-4 py-2 bg-white hover:bg-gray-100 text-[#1A1A2E] text-sm font-semibold rounded-lg transition-colors"
+                            disabled={downloading}
+                            className="flex items-center gap-2 px-4 py-2 bg-white hover:bg-gray-100 text-[#1A1A2E] text-sm font-semibold rounded-lg transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
                         >
                             <DocumentArrowDownIcon className="w-4 h-4" />
-                            Download as PDF
+                            {downloading ? 'Generating…' : 'Download as PDF'}
                         </button>
                     </div>
                 </div>
@@ -168,7 +176,6 @@ export default function AssignmentDetailPage() {
                         {/* Meta row */}
                         <div className="flex justify-between text-sm text-text-1 mb-6">
                             <span>Time Allowed: <strong className="text-text-0">{paper.metadata.timeAllowed}</strong></span>
-                            <span>Maximum Marks: <strong className="text-text-0">{paper.metadata.totalMarks}</strong></span>
                         </div>
 
                         {/* Student Info */}
