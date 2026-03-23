@@ -42,7 +42,6 @@ Assessment Creator is a full-stack web application that helps teachers create, m
 | **ioredis / Redis** | Caching + BullMQ connection |
 | **Socket.IO** | Real-time WebSocket events |
 | **Multer** | File upload handling |
-| **Puppeteer** | PDF generation |
 | **Google Gemini API** | AI question paper & metadata generation |
 | **Zod** | Response schema validation |
 
