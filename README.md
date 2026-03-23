@@ -196,7 +196,6 @@ npm run lint    # Run ESLint
 | `DELETE` | `/api/assignments/:id` | Delete assignment |
 | `POST` | `/api/assignments/:id/regenerate` | Regenerate question paper |
 | `GET` | `/api/assignments/:id/paper` | Get the question paper |
-| `GET` | `/api/assignments/:id/pdf` | Download paper as PDF |
 
 ---
 
